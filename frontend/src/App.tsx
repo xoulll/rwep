@@ -34,8 +34,8 @@ const App: React.FC<AppProps> = React.memo(() => {
   const [robuxAmnt, setRobuxAmnt] = useState<number>(0);
   const [avatarUrl, setAvatarUrl] = useState<string>("");
   const [isLoading, setIsLoading] = useState<boolean>(true);
-  // declare matches as a plain array since the setter was unused
-  const matches: Match[] = [];
+  const [rendered, setRendered] = useState<boolean>(false);
+  const [matches] = useState<Match[]>([]);
 
   const handleColorChange = (event: any) => {
     setColor(event.target.value);
