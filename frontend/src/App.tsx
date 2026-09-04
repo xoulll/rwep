@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import { Button, Spinner, Form } from "react-bootstrap";
 import axios, { AxiosResponse } from "axios";
 import InfoBar from "./infobar/index";
@@ -34,7 +34,8 @@ const App: React.FC<AppProps> = React.memo(() => {
   const [robuxAmnt, setRobuxAmnt] = useState<number>(0);
   const [avatarUrl, setAvatarUrl] = useState<string>("");
   const [isLoading, setIsLoading] = useState<boolean>(true);
-  const [matches] = useState<Match[]>([]);
+  // useMemo provides a stable empty array without declaring an unused setter
+  const matches = useMemo(() => [] as Match[], []);
 
   const handleColorChange = (event: any) => {
     setColor(event.target.value);
