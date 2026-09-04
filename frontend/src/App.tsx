@@ -5,7 +5,6 @@ import InfoBar from "./infobar/index";
 import { API_URL } from "./constants";
 import {
   checkAuthTokenCookie,
-  connectWebSocket,
   sendWebSocketMessage,
 } from "./utils";
 
@@ -35,7 +34,6 @@ const App: React.FC<AppProps> = React.memo(() => {
   const [robuxAmnt, setRobuxAmnt] = useState<number>(0);
   const [avatarUrl, setAvatarUrl] = useState<string>("");
   const [isLoading, setIsLoading] = useState<boolean>(true);
-  const [rendered, setRendered] = useState<boolean>(false);
   const [matches, setMatches] = useState<Match[]>([]);
 
   const handleColorChange = (event: any) => {
@@ -59,12 +57,6 @@ const App: React.FC<AppProps> = React.memo(() => {
     // Bet amount value from input, currently not used
     parseInt(event.target.value);
   };
-
-  useEffect(() => {
-    if (rendered) return;
-    connectWebSocket("ws://localhost:4324", handleSockMessage);
-    setRendered(true);
-  }, [rendered]);
 
   useEffect(() => {
     const fetchData = async (): Promise<void> => {
