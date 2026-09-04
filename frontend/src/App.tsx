@@ -40,17 +40,6 @@ const App: React.FC<AppProps> = React.memo(() => {
     setColor(event.target.value);
   };
 
-  const handleSockMessage = (message: string) => {
-    if (message.startsWith("69/newgame")) {
-      const gameId = message.split("/")[1];
-      const newMatch: Match = { id: parseInt(gameId), name: `Match ${gameId}` };
-      setMatches((prevMatches) => [...prevMatches, newMatch]);
-    } else if (message.startsWith("69/loadoldgames")) {
-    } else if (message == "3") {
-      sendWebSocketMessage("5");
-    }
-  };
-
   const handleBetAmountChange = (
     event: React.ChangeEvent<HTMLInputElement>
   ) => {
