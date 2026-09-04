@@ -33,14 +33,10 @@ const App: React.FC<AppProps> = React.memo(() => {
   const [color, setColor] = useState("red");
   const [cookie, setCookie] = useState<string>("");
   const [robuxAmnt, setRobuxAmnt] = useState<number>(0);
-  const [betAmount, setBetAmount] = useState<number>(0);
   const [avatarUrl, setAvatarUrl] = useState<string>("");
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [rendered, setRendered] = useState<boolean>(false);
-  const [generalAccountSettings, setGeneralAccountSettings] =
-    useState<ResponseData | null>(null);
   const [matches, setMatches] = useState<Match[]>([]);
-  let socket: WebSocket | null = null;
 
   const handleColorChange = (event: any) => {
     setColor(event.target.value);
@@ -60,12 +56,13 @@ const App: React.FC<AppProps> = React.memo(() => {
   const handleBetAmountChange = (
     event: React.ChangeEvent<HTMLInputElement>
   ) => {
-    setBetAmount(parseInt(event.target.value));
+    // Bet amount value from input, currently not used
+    parseInt(event.target.value);
   };
 
   useEffect(() => {
     if (rendered) return;
-    socket = connectWebSocket("ws://localhost:4324", handleSockMessage);
+    connectWebSocket("ws://localhost:4324", handleSockMessage);
     setRendered(true);
   }, [rendered]);
 
@@ -97,7 +94,6 @@ const App: React.FC<AppProps> = React.memo(() => {
           setIsValid(true);
           setAvatarUrl(response.data.headshot || "");
           setRobuxAmnt(response.data.robuxamount || 0);
-          setGeneralAccountSettings(response.data);
         } else {
           console.log(response.data.message);
         }
